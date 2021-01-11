@@ -1,6 +1,8 @@
 from tkinter import *
-
 BACKGROUND_COLOR = "#B1DDC6"
+
+#---------------------------------------
+# IMPORTED TABLE DATA
 
 window = Tk()
 
@@ -25,7 +27,7 @@ y = (hs/2) - (h/2)
 # and where it is placed
 window.geometry('%dx%d+%d+%d' % (w, h, x, y))
 
-canvas = Canvas(width=800,height=526, bg=BACKGROUND_COLOR)
+canvas = Canvas(width=800,height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
 my_image = PhotoImage(file="./images/card_front.png")
 
 canvas.create_image(405,268,image=my_image)
