@@ -6,16 +6,18 @@ import pandas
 data = pandas.read_csv("./data/spanish_words.csv")
 df = pandas.DataFrame(data)
 pairings = df.to_dict(orient='records')
-print(pairings[1]['Spanish'])
-print(pairings)
+# print(pairings[1]['Spanish'])
+# print(pairings)
+
 
 class Card():
     def __init__(self):
         self.spanish = self.easy()
-        self.score = 0
-        self.tries = 0
+        self.score = 1
+        self.tries = 1
         self.spanish = pairings[0]['Spanish']
         self.english = pairings[0]['English']
+        self.difficulty = "easy"
 
     def easy(self):
         self.spanish = pairings[self.tries]['Spanish']
@@ -25,20 +27,21 @@ class Card():
         self.spanish = pairings[random.randint(0,len(pairings))]
         self.english = pairings[random.randint(0,len(pairings))]
 
-    def incorrect(self):
-        print("incorrect")
-
     def correct(self):
-        print("correct")
+        self.tries += 1
+        self.score_update()
+        self.next_card()
+
+    def incorrect(self):
+        self.tries += 1
+        self.english
+        self.next_card()
 
     def next_card(self):
-        print("next card")
-
-    def score(self):
-        self.score = 0
+        if self.difficulty == 'easy':
+            self.easy()
+        elif self.difficulty == 'medium':
+            self.medium()
 
     def score_update(self):
         self.score += 1
-
-    def tries_counter(self):
-        self.tries += 1

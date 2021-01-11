@@ -1,10 +1,13 @@
 from tkinter import *
+from card import Card
+
 BACKGROUND_COLOR = "#B1DDC6"
 
 #---------------------------------------
 # IMPORTED TABLE DATA
 
 window = Tk()
+card = Card()
 
 window.title("Spanish Flashcards")
 window.config(padx=50,pady=50,bg=BACKGROUND_COLOR)
@@ -36,7 +39,7 @@ canvas.grid(column=0,row=0,columnspan=2)
 language = canvas.create_text(400,150,fill="black",font="Verdana 40 italic",
                         text="Spanish")
 translate = canvas.create_text(400,263,fill="black",font="Arial 60 bold",
-                        text="Word")
+                        text=f"{card.spanish}")
 
 tick = PhotoImage(file="./images/right.png")
 button_right = Button(image=tick,highlightthickness=0)
