@@ -1,3 +1,4 @@
+from tkinter import *
 import random
 import pandas
 import json
@@ -21,30 +22,24 @@ class Card():
         self.english = pairings[0]['English']
         self.difficulty = "easy"
 
-    def easy(self):
-        self.spanish = pairings[self.tries]['Spanish']
-        self.english = pairings[self.tries]['English']
+    # def easy(self, canvas, translate):
+    #     self.spanish = pairings[self.tries]['Spanish']
+    #     self.english = pairings[self.tries]['English']
 
-    def medium(self):
-        self.spanish = pairings[random.randint(0,len(pairings))]
-        self.english = pairings[random.randint(0,len(pairings))]
+    # def medium(self):
+    #     self.spanish = pairings[random.randint(0,len(pairings))]
+    #     self.english = pairings[random.randint(0,len(pairings))]
 
     def remember(self):
         known_words.append({'Spanish':self.spanish,'English':self.english})
         self.tries += 1
         self.score_update()
-        self.next_card()
+        return True
 
     def forgot(self):
         revision_list.append({'Spanish':self.spanish, 'English':self.english})
         self.tries += 1
-        self.next_card()
-
-    def next_card(self):
-        if self.difficulty == 'easy':
-            self.easy()
-        elif self.difficulty == 'medium':
-            self.medium()
+        return False
 
     def score_update(self):
         self.score += 1
@@ -63,6 +58,3 @@ class Card():
             print("Something")
             with open(f"./passwordlist.json", mode="w") as scoretracker:
                 json.dump(data, scoretracker, indent=4)
-
-        finally:
-            print("Finally")

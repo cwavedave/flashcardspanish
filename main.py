@@ -30,10 +30,16 @@ y = (hs/2) - (h/2)
 # and where it is placed
 window.geometry('%dx%d+%d+%d' % (w, h, x, y))
 
+def guess():
+    print(card.remember())
+
+def forgot():
+    print(card.forgot())
+
 canvas = Canvas(width=800,height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
 my_image = PhotoImage(file="./images/card_front.png")
 
-canvas.create_image(405,268,image=my_image)
+background = canvas.create_image(405,268,image=my_image)
 canvas.grid(column=0,row=0,columnspan=2)
 
 language = canvas.create_text(400,150,fill="black",font="Verdana 40 italic",
@@ -42,11 +48,11 @@ translate = canvas.create_text(400,263,fill="black",font="Arial 60 bold",
                         text=f"{card.spanish}")
 
 tick = PhotoImage(file="./images/right.png")
-button_right = Button(image=tick,highlightthickness=0,command=card.remember())
+button_right = Button(image=tick,highlightthickness=0,command=guess)
 button_right.grid(column=0,row=2)
 
 wrong = PhotoImage(file="./images/wrong.png")
-button_wrong = Button(image=wrong,highlightthickness=0, command=card.forgot())
+button_wrong = Button(image=wrong,highlightthickness=0, command=forgot)
 button_wrong.grid(column=1,row=2)
 
 
