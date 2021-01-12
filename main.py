@@ -42,23 +42,12 @@ translate = canvas.create_text(400,263,fill="black",font="Arial 60 bold",
                         text=f"{card.spanish}")
 
 tick = PhotoImage(file="./images/right.png")
-button_right = Button(image=tick,highlightthickness=0)
+button_right = Button(image=tick,highlightthickness=0,command=card.remember())
 button_right.grid(column=0,row=2)
 
 wrong = PhotoImage(file="./images/wrong.png")
-button_wrong = Button(image=wrong,highlightthickness=0)
+button_wrong = Button(image=wrong,highlightthickness=0, command=card.forgot())
 button_wrong.grid(column=1,row=2)
-
-
-
-
-
-
-
-
-
-
-
 
 
 

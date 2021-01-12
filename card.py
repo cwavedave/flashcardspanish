@@ -1,5 +1,6 @@
 import random
 import pandas
+import json
 #---------------------------------------
 # IMPORTED TABLE DATA
 
@@ -9,12 +10,13 @@ pairings = df.to_dict(orient='records')
 # print(pairings[1]['Spanish'])
 # print(pairings)
 
+revision_list = []
+known_words =[]
 
 class Card():
     def __init__(self):
-        self.spanish = self.easy()
-        self.score = 1
-        self.tries = 1
+        self.score = 0
+        self.tries = 0
         self.spanish = pairings[0]['Spanish']
         self.english = pairings[0]['English']
         self.difficulty = "easy"
@@ -27,14 +29,15 @@ class Card():
         self.spanish = pairings[random.randint(0,len(pairings))]
         self.english = pairings[random.randint(0,len(pairings))]
 
-    def correct(self):
+    def remember(self):
+        known_words.append({'Spanish':self.spanish,'English':self.english})
         self.tries += 1
         self.score_update()
         self.next_card()
 
-    def incorrect(self):
+    def forgot(self):
+        revision_list.append({'Spanish':self.spanish, 'English':self.english})
         self.tries += 1
-        self.english
         self.next_card()
 
     def next_card(self):
@@ -45,3 +48,21 @@ class Card():
 
     def score_update(self):
         self.score += 1
+        new_data = {'revision':revision_list, 'score': self.score, 'tries':self.tries,'known_words':known_words}
+        try:
+            with open(f"./scoretracker.json", mode="r") as scoretracker:
+                data = json.load(scoretracker)
+                data.update(new_data)
+                # Reads old data
+
+        except FileNotFoundError:
+            with open(f"./passwordlist.json", mode="w") as scoretracker:
+                json.dump(new_data, scoretracker, indent=4)
+
+        else:
+            print("Something")
+            with open(f"./passwordlist.json", mode="w") as scoretracker:
+                json.dump(data, scoretracker, indent=4)
+
+        finally:
+            print("Finally")
