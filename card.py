@@ -7,36 +7,40 @@ import json
 
 data = pandas.read_csv("./data/spanish_words.csv")
 df = pandas.DataFrame(data)
-pairings = df.to_dict(orient='records')
+revision_list = df.to_dict(orient='records')
 
-revision_list = []
-known_words =[]
+current_card = {}
+known_words = []
 
 class Card():
     def __init__(self):
         self.score = 0
         self.tries = 0
-        self.spanish = pairings[0]['Spanish']
-        self.english = pairings[0]['English']
+        self.spanish = revision_list[0]['Spanish']
+        self.english = revision_list[0]['English']
         self.difficulty = "easy"
 
     def next_card(self):
-        self.spanish = pairings[self.tries]['Spanish']
-        self.english = pairings[self.tries]['English']
-
+        self.tries += 1
+        current_card = random.choice(revision_list)
+        print(current_card)
+        self.spanish = current_card['Spanish']
+        self.english = current_card['English']
     # # def medium(self):
     #     self.spanish = random.choice(pairings)
     #     self.english = random.choice(pairings)
 
     def remember(self):
         known_words.append({'Spanish':self.spanish,'English':self.english})
-        self.tries += 1
+        print(known_words)
         self.score_update()
+        self.next_card()
         return True
 
     def forgot(self):
         revision_list.append({'Spanish':self.spanish, 'English':self.english})
-        self.tries += 1
+        print(revision_list)
+        self.next_card()
         return True
 
     def score_update(self):

@@ -34,25 +34,22 @@ def guess():
     if card.remember():
         global flip_timer
         window.after_cancel(flip_timer)
+        flip_timer = window.after(3000,flip)
         print(f"Tries = {card.tries}")
         print(f"Score = {card.score}")
         default()
-        card.next_card()
-        flip_timer = window.after(3000,flip)
 
 def forgot():
     if card.forgot():
         global flip_timer
         window.after_cancel(flip_timer)
-        print("hi")
+        flip_timer = window.after(3000,flip)
         print(f"Tries = {card.tries}")
         print(f"Score = {card.score}")
-        canvas.itemconfig(translate, text=card.spanish, fill="black")
-        card.next_card()
-        flip_timer = window.after(3000,flip)
+        default()
 
 def flip():
-    canvas.itemconfig(language, text='English', fill="white")
+    canvas.itemconfig(language, text='🇬🇧 English ', fill="white")
     canvas.itemconfig(translate, text=card.english, fill="white")
     canvas.itemconfig(background, image=back)
 
