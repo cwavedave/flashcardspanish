@@ -33,20 +33,16 @@ window.geometry('%dx%d+%d+%d' % (w, h, x, y))
 def guess():
     if card.remember():
         global flip_timer
+        default()
         window.after_cancel(flip_timer)
         flip_timer = window.after(3000,flip)
-        print(f"Tries = {card.tries}")
-        print(f"Score = {card.score}")
-        default()
 
 def forgot():
     if card.forgot():
         global flip_timer
+        default()
         window.after_cancel(flip_timer)
         flip_timer = window.after(3000,flip)
-        print(f"Tries = {card.tries}")
-        print(f"Score = {card.score}")
-        default()
 
 def flip():
     canvas.itemconfig(language, text='🇬🇧 English ', fill="white")
